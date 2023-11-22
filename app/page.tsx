@@ -10,7 +10,8 @@ export default function Home() {
   const [isRotating, setIsRotating] = useState<boolean>(false);
   const adjustBiplaneForScreenSize = () => {
     let screenScale, screenPosition;
-    if (window && window.innerWidth < 768) {
+
+    if (typeof window !== "undefined" && window.innerWidth < 768) {
       screenScale = [1.5, 1.5, 1.5];
       screenPosition = [0, -1.5, 0];
     } else {
@@ -21,9 +22,11 @@ export default function Home() {
     return [screenScale, screenPosition];
   };
   const adjustIslandForScreenSize = () => {
-    let screenScale, screenPosition,islandRotation=[0.1, 4.7077, 0];
+    let screenScale,
+      screenPosition,
+      islandRotation = [0.1, 4.7077, 0];
 
-    if (window.innerWidth < 768) {
+    if (typeof window !== "undefined" && window.innerWidth < 768) {
       screenScale = [0.9, 0.9, 0.9];
       screenPosition = [0, -6.5, -43.4];
     } else {
@@ -31,18 +34,19 @@ export default function Home() {
       screenPosition = [0, -6.5, -43.4];
     }
 
-    return [screenScale, screenPosition,islandRotation];
+    return [screenScale, screenPosition, islandRotation];
   };
 
   const [biplaneScale, biplanePosition] = adjustBiplaneForScreenSize();
-  const [islandScale, islandPosition,islandRotation] = adjustIslandForScreenSize();
+  const [islandScale, islandPosition, islandRotation] = adjustIslandForScreenSize();
 
   return (
     <main className="flex min-h-screen flex-col items-center justify-between">
       <section className="w-full h-screen relative p-2">
-        <Canvas className={`w-full h-screen bg-transparent ${
-          isRotating ? "cursor-grabbing" : "cursor-grab"
-        }`} camera={{ near: 0.1, far: 1000 }}>
+        <Canvas
+          className={`w-full h-screen bg-transparent ${isRotating ? "cursor-grabbing" : "cursor-grab"}`}
+          camera={{ near: 0.1, far: 1000 }}
+        >
           <Suspense fallback={null}>
             <directionalLight position={[10, 1, 1]} intensity={2} />
             <ambientLight intensity={0.5} />
