@@ -1,5 +1,5 @@
 import { a } from "@react-spring/three";
-import React, { ChangeEvent, useEffect, useRef, KeyboardEvent } from "react";
+import React, { memo, useEffect, useRef, KeyboardEvent } from "react";
 import { useGLTF } from "@react-three/drei";
 import { useFrame, useThree } from "@react-three/fiber";
 
@@ -13,7 +13,7 @@ type IslandProps = {
   setIsRotating: (value: boolean) => void;
   setCurrentStage: (value: number | null) => void;
 };
-export default function Island({ isRotating, setIsRotating, setCurrentStage, ...props }: IslandProps) {
+function Island({ isRotating, setIsRotating, setCurrentStage, ...props }: IslandProps) {
   const IslandScene = "./island.glb";
   const islandRef = useRef<any>();
   const { gl, viewport } = useThree();
@@ -139,3 +139,4 @@ export default function Island({ isRotating, setIsRotating, setCurrentStage, ...
     </>
   );
 }
+export default memo(Island)
